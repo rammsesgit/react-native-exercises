@@ -1,2 +1,3 @@
-# react-native-course
-Data and projects from react-native course in Udemy
+# react-native
+
+Exercises and test projects of react-native
