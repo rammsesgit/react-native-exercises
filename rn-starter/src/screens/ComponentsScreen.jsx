@@ -1,22 +1,25 @@
 import React from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 
-const ComponentsScreen = () => {
+const styles = StyleSheet.create({
+  textStyle: {
+    fontSize: 45,
+    color: 'red'
+  },
+  name: {
+    fontSize: 30,
+    color: 'black'
+  }
+})
+
+export default ComponentsScreen = () => {
   const test = { message: 'Hello Alca' }
+  const name = 'Rammses'
 
   return (
     <View>
       <Text style={styles.textStyle}> This is the components screen </Text>
-      <Text> {test.message} </Text>
+      <Text style={styles.name}> {name} </Text>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  textStyle: {
-    fontSize: 30,
-    color: 'red'
-  }
-})
-
-export default ComponentsScreen
