@@ -5,7 +5,7 @@ import { Context as BlogContext } from '../context/BlogContext'
 
 import { Entypo } from '@expo/vector-icons'
 
-export default IndexScreen = () => {
+export default IndexScreen = ({ navigation }) => {
   const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext)
 
   return (
@@ -16,12 +16,18 @@ export default IndexScreen = () => {
         keyExtractor={({ id }) => id}
         renderItem={({ item }) => {
           return (
-            <View style={styles.row}>
-              <Text style={styles.title}>{item.title}</Text>
-              <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
-                <Entypo style={styles.icon} name='trash' />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Show', { id: item.id, text: 'srg' })
+              }}
+            >
+              <View style={styles.row}>
+                <Text style={styles.title}>{item.title}</Text>
+                <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                  <Entypo style={styles.icon} name='trash' />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           )
         }}
       />
