@@ -3,28 +3,29 @@ import { Button, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'reac
 
 import { Context as BlogContext } from '../context/BlogContext'
 
-import { Entypo } from '@expo/vector-icons'
+import { FontAwesome, Feather } from '@expo/vector-icons'
 
 export default IndexScreen = ({ navigation }) => {
-  const { state, addBlogPost, deleteBlogPost } = useContext(BlogContext)
+  const { state, deleteBlogPost } = useContext(BlogContext)
 
   return (
     <View style={{ flex: 1 }}>
-      <Button title='Add Post' onPress={addBlogPost} />
       <FlatList
         data={state}
         keyExtractor={({ id }) => id}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Show', { id: item.id, text: 'srg' })
+                navigation.navigate('Show', { id: item.id })
               }}
             >
               <View style={styles.row}>
-                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.title}>
+                  {index + 1} - {item.title}
+                </Text>
                 <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
-                  <Entypo style={styles.icon} name='trash' />
+                  <FontAwesome style={styles.icon} name='trash-o' />
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>
@@ -33,6 +34,20 @@ export default IndexScreen = ({ navigation }) => {
       />
     </View>
   )
+}
+
+IndexScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Create')
+        }}
+      >
+        <Feather name='file-plus' size={30} style={{ marginRight: 10 }} />
+      </TouchableOpacity>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
