@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useContext } from 'react'
+import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
-import { Buttons, Containers, Texts } from '../styles'
+import { Context as BlogContext } from '../context/BlogContext'
+import BlogPostForm from '../components/BlogPostForm'
 
 export default EditScreen = ({ navigation }) => {
   const id = navigation.getParam('id')
+  const { state, updateBlogPost } = useContext(BlogContext)
+  const blogpost = state.find(blogpost => blogpost.id === id)
+
   return (
-    <View>
-      <Text>EditScreen {id}</Text>
-    </View>
+    <BlogPostForm
+      initialValues={{ title: blogpost.title, content: blogpost.content }}
+      onSubmit={(title, content) => {
+        updateBlogPost(id, title, content)
+      }}
+    />
   )
 }
 
