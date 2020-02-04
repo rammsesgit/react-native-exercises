@@ -2,6 +2,10 @@ import createDataContext from './createDataContext'
 
 const blogReducer = (state, action) => {
   switch (action.type) {
+    case 'update_blogPost':
+      return state.map(blogPost => {
+        return blogPost.id === action.payload.id ? action.payload : blogPost
+      })
     case 'add_blogpost':
       return [
         ...state,
